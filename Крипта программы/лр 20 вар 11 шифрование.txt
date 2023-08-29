@@ -1,0 +1,22 @@
+# ASCII-таблица со всеми возможными символами
+import string
+kod_ascii = []
+kod_ascii.extend(string.ascii_letters)
+kod_ascii.extend(string.digits)
+kod_ascii.extend(string.punctuation)
+kod_ascii.append(' ')
+print(kod_ascii)
+
+text = input('Введите Ваше тайное послание, милорд: ') # Вводить длину, кратную 6
+spisok_text = [i for i in text] # Для удобства формируем список с отдельно взяытми символами поступающей строки текста
+
+perestanovka = {0: 1, 1: 5, 2: 2, 3: 4, 4: 0, 5: 3}
+new_list = [] # В этот список будут записываться зашифрованные символы
+split_size = 6
+splitted_text = [spisok_text[i:i+split_size] for i in range(0, len(spisok_text), split_size)] # Делим на равные части по 6 элементов введенный текст
+
+for j in range(len(splitted_text)):
+    for i in range(len(spisok_text)):
+        if i < len(perestanovka): # Если индекс элемента i меньше длины правила перестановки, то переход на следующий j-элемент списка
+            new_list.append(splitted_text[j][perestanovka.get(i)])
+print('Зашифрованное тайное послание, милорд: ', *new_list, sep='')
